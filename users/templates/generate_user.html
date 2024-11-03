@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<h2>Register a new competitor</h2>
+
+<form method="post" action="{% url 'generate_user' %}">
+
+  {% csrf_token %}
+  
+  <fieldset>
+    <legend>New user's details</legend>
+    
+    <label for="name" class="required">First Name</label>
+    <input type="text" name="first_name" id="first_name" required>
+    
+    <label for="name" class="required">Last Name</label>
+    <input type="text" name="last_name" id="last_name" required>
+
+    <label for="ranking">Ranking</label>
+    <input type="number" name="ranking" id="ranking" min="0" value="0">
+    
+    <label for="is_referee">Referee</label>
+    <input type="checkbox" name="is_referee" id="is_referee">
+  </fieldset>
+
+  <button type="submit">Submit</button>
+  <button type="button" onclick="goPrev()">Cancel</button>
+</form>
+
+<script>
+  function goPrev(){
+    //TODO if previous page was in the same domain
+    if (window.history){
+      window.history.back();
+    }else{
+      location.href= '/'
+    }
+    event.preventDefault();
+    return false;
+  }
+</script>
+{% endblock %}

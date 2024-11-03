@@ -1,0 +1,149 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<button type="button" onclick="window.history.back()">Go back</button>
+
+<h2>Create Tournament</h2>
+
+  <span ></span>
+
+<form method="post" action="{% url 'generate_tournaments' %}">
+
+  {% csrf_token %}
+  
+  <fieldset>
+    <legend>Tournament Details</legend>
+    
+    <label for="name" class="required">Tournament Name</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="date">Date</label>
+    <input type="date" name="date" id="date">
+
+    <label for="location">Location</label>
+    <input type="text" name="location" id="location">
+    
+    <label for="location">Max number of participants</label>
+    <input type="number" name="max_nb_participants" id="max_nb_participants" min="2" value="32">
+
+    <label for="use_pools">Use Pools</label>
+    <input type="checkbox" name="use_pools" id="use_pools">
+  </fieldset>
+
+  <!-- Competitor Selection/Registration -->
+  <fieldset>
+    <legend>Competitors</legend>
+
+    {% if competitors %}
+      <div id="existing-competitors">
+        <label for="existing_competitors">Choose Existing Competitors</label>
+        <select name="existing_competitors" id="existing_competitors" multiple>
+          {% for competitor in competitors %}
+            <option value="{{ competitor.id }}">{{ competitor.first_name }} {{ competitor.last_name }}</option>
+          {% endfor %}
+        </select>
+      </div>      
+    {% endif %}
+    <br/>
+    <div id="new-competitors">
+      All the columns have to be filled in for a filled row 
+      <table id="new-competitors-table">
+        <thead>
+          <th>
+            <td><h3>Register New Competitor</h3></td>
+            <td>
+              <button id="addRow-btn" type="button" name="add-btn">
+              +
+              <template>
+                <tr>
+                  <td>
+                    <label for="new_competitor_last_name">Last Name</label>
+                    <input type="text" name="new_competitor_last_name[]" id="new_competitor_last_name">
+                  </td>
+                  <td>
+                    <label for="new_competitor_first_name">First Name</label>
+                    <input type="text" name="new_competitor_first_name[]" id="new_competitor_first_name">
+                  </td>
+                  <td>
+                    <label for="new_competitor_ranking">Ranking</label>
+                    <input type="number" name="new_competitor_ranking[]" id="new_competitor_ranking">
+                  </td>
+                  <td><button type="button" name="remove-btn" onclick="removeRow(this)">Remove</button></td>
+                </tr>
+              </template>
+            </button>
+          </td>
+        </th>
+      </thead>
+      <tbody id="new-competitors-table-body">
+        <tr>
+          <td>
+            <label for="new_competitor_last_name">Last Name</label>
+            <input type="text" name="new_competitor_last_name[]" id="new_competitor_last_name">
+          </td>
+          <td>
+            <label for="new_competitor_first_name">First Name</label>
+            <input type="text" name="new_competitor_first_name[]" id="new_competitor_first_name">
+          </td>
+          <td>
+            <label for="new_competitor_ranking">Ranking</label>
+            <input type="number" name="new_competitor_ranking[]" id="new_competitor_ranking">
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </fieldset>
+
+  <button type="submit">Create Tournament</button>
+  <button type="button" onclick="goPrev()">Cancel</button>
+</form>
+
+<script>
+  function goPrev(){
+    //TODO if previous page was in the same domain
+    if (window.history){
+      window.history.back();
+    }else{
+      location.href= '/'
+    }
+    event.preventDefault();
+    return false;
+  }
+  
+  function addRow(){
+    //TODO if previous page was in the same domain
+    const tableBody = document.getElementById('new-competitors-table-body');
+    const addButton = document.getElementById('addRow-btn');
+    addButton.addEventListener('click', (e)=>{
+      const newRow = addButton.querySelector('template').content.cloneNode(true);
+      tableBody.appendChild(newRow);
+    });
+  }
+
+  function removeRow(node){
+    var row = node.closest("tr");
+    row.parentNode.removeChild(row);
+  }
+
+  //default date = today
+  document.getElementById('date').valueAsDate = new Date();
+  addRow();
+</script>
+
+<style>
+  button#addRow-btn, button[name="remove-btn"]{
+    min-height: unset;
+    min-width: unset;
+    padding: 2px;
+    border: unset;
+    border-radius: 5px;
+    color:black;
+    background-color: rgb(26, 119, 88);
+  }
+  button[name="remove-btn"]{
+    background-color: rgb(26, 119, 88);
+    
+  }
+</style>
+{% endblock %}

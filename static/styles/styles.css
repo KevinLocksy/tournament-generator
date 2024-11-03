@@ -1,0 +1,185 @@
+/**
+* Global variables
+*/
+:root{
+  --font-family-primary:Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  --font-family-secondary:"Yellowtail", sans serif;
+  --banner-min-height:50px;
+}
+
+/**
+* HTML documents
+*/
+html {
+  color: var(--text-primary);
+  background-color:var(--background-primary);
+}
+
+body{
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  grid-template-areas: 
+    "header header"
+    "aside main";
+}
+
+* {
+  font-family:var(--font-family-primary);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.required:after {
+  content:"*";
+  color: red;
+}
+
+a:visited {
+  color:unset
+}
+
+fieldset{
+  padding: 1rem;
+  margin: 1rem;
+}
+
+/** Table **/
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table thead tr {
+  background-color: var(--background-table-th-primary);
+  color: #ffffff;
+  text-align: left;
+}
+
+table tbody tr {
+  border-bottom: 1px solid var(--background-table-tr-primary);
+  &:nth-of-type(even) {
+    background-color: var(--background-table-tr-secondary);
+  }
+  &:hover{
+    background-color: var(--background-table-tr-hover);
+    cursor: pointer;
+  }
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--background-table-th-primary);
+}
+
+/** button **/
+button {
+  appearance: none;
+  background-color: var(--background-secondary);
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: var(--logo-caption-primary);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 1.5em;
+  max-height: 60px;
+  outline: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+/**
+* Navbar
+*/
+navbar>ul{
+  list-style: none;
+}
+
+/**
+* Header
+*/
+header{
+  grid-area: header;
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-areas: "applogo tournament navbar";
+  min-height: 5rem;
+  padding: 1rem;
+  background-color:var(--background-secondary);
+  box-shadow: 0px 1px 5px var(--shadow-box-primary);
+}
+/**
+* Header's children: Logo 
+*/
+div#appLogo{
+  grid-area: applogo;
+  padding:0 1rem;
+}
+
+/**
+* Header's children: tournament 
+*/
+div#tournament_header {
+	grid-area: tournament;
+	padding: 0 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/**
+* Header's children: Navbar - registration
+*/
+navbar#registration{
+  grid-area: navbar;
+  justify-self: end;
+}
+
+
+navbar#registration>ul li{
+  display:inline-block;
+  min-width: 5rem;
+  background-color: rgb(53, 53, 53);
+  padding: 0 1rem;
+}
+
+/**
+* Vertical Navbar - navigation
+*/
+aside{
+  grid-area: aside;
+  height: calc(100vh - 5rem);
+  background-color: var(--background-third);
+  padding: 0.5rem 1rem;
+}
+navbar#navigation{
+  display: block;
+}
+navbar#navigation>ul li{
+  padding: 0.5em 0em;
+}
+
+main{
+  grid-area: main;
+  padding: 1rem;
+}
+
+/**
+* Footer
+*/

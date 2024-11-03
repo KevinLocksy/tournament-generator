@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div id="home-wrapper">
+  <div>
+    <h3>
+      5 Latest tournaments
+    </h3>
+    {% if tournaments %}
+    <table id="list-tournaments">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Number of participants</th>
+          <th>Winner</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in tournaments %}
+        <tr id="tournament-{{x.id}}" data-index="{{x.id}}" >
+          <td>{{ x.id }}</td>
+          <td>{{ x.name }}</td>
+          <td>{{ x.nb_participants }}</td>
+          <td>{{ x.winner }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <span>No tournament yet.</span>
+  {% endif %}
+  </div>
+  <div>
+    <h3>
+      5 Latest competitors
+    </h3>
+    {% if competitors %}
+    <table id="list-users">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th> 
+          <th>Ranking</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in competitors %}
+        <tr id="competitor-{{x.id}}" data-index="{{ x.id }}">
+          <td>{{ x.id }}</td>
+          <td>{{ x.first_name }} {{ x.last_name }}</td>
+          <td>{{ x.ranking }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <span>No competitors yet.</span>
+  {% endif %}
+  </div>
+</div>
+
+<script>
+  setLinkTableRow("list-tournaments", "tournaments/");
+  setLinkTableRow("list-users", "users/");
+</script>
+
+<style>
+  div#home-wrapper{
+    display: flex;
+    gap:2rem;
+    justify-content: space-evenly;
+  }
+</style>
+{% endblock %}

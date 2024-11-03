@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="dark" profile="http://www.w3.org/2005/10/profile">
+  <head>
+    <title>Tournaments generator</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <script type="text/javascript" src="{% static 'js/utils.js' %}"></script>
+  </head>
+
+  <body>
+    <header>
+      <div id="appLogo">
+        <!-- <span>Logo</span> -->
+      </div>
+      <div id="tournament_header">
+        <span>Name of application / tournament</span>
+        <div id="link-generator">
+          <a href="/tournaments/generate">
+            Create a tournament
+          </a>
+          {% if user.is_authenticated %}
+            <a href="/users/generate">
+              Register a competitor or a referee
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <navbar id="registration">
+        <ul>
+          {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username|title }}!</p>
+            <a href="{% url 'logout' %}">Log Out</a>
+          {% else %}
+              <a href="{% url 'signup' %}">Sign Up</a> |
+              <a href="{% url 'login' %}">Log In</a>
+          {% endif %}
+        </ul>
+      </navbar>
+    </header>
+
+    <aside>
+      <navbar id="navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/users">Competitors</a></li>
+          <li><a href="/tournaments">Tournaments</a></li>
+          <li><a href="/users/referees">Referees</a></li>
+        </ul>
+      </navbar>
+    </aside>
+
+    <main>
+      {% block main %}
+      {% endblock %}
+    </main>
+  </body>
+
+  <style>
+    div#link-generator>a{
+      margin: 0 1rem;
+    }
+  </style>
+</html>

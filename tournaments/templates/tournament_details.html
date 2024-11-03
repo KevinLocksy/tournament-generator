@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+  
+{% block main %}
+  <button type="button" onclick="window.history.back()">Go back</button>
+  <h2>Tournament: ID {{ tournament.id }} - {{ tournament.name|title }}</h2>
+  <div id="tournament-wrapper">
+    <div id="tournament-overview">
+      <div>
+        <h5>Winner</h5>
+        <p>{{ tournament.winner }}</p>
+      </div>
+      <div>
+        <h5>Status</h5>
+        <p></p>
+      </div>
+      <div>
+        <h5>Number of participants</h5>
+        <p>{{ tournament.nb_participants }}</p>
+      </div>
+    </div>
+    <div id="tournament-details">
+      <div id="tournament-details-participants">
+        <h4>Participants</h4>
+        <table id="list-participants">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th> 
+              <th>Classfication</th>
+              <th>General Ranking</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for participation in participants %}
+            <tr id="competitor-{{x.id}}" data-index="{{ x.id }}">
+              <td>{{ participation.competitor.id }}</td>
+              <td>{{ participation.competitor.full_name }} </td>
+              <td>TODO</td>
+              <td>{{ participation.competitor.ranking }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div id="tournament-details-matches">
+        <h4>Matches : Phase {{match.get_stage_display }}</h4>
+        <table id="list-matches">
+          <thead>
+            <tr>
+              <th>Competitor A</th>
+              <th>Competitor B</th> 
+              <th>Score</th>
+              <th>Winner</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for match in matches %}
+            <tr id="competitor-{{x.id}}" data-index="{{ x.id }}">
+              <td>{{match.competitor_1.first_name}}</td>
+              <td>{{match.competitor_2.first_name}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /**
+    * Overview
+    */
+    div#tournament-overview{
+      display: flex;
+      flex-direction: row;
+      padding: 1rem;
+      gap:1rem;
+    }
+    
+    /**
+    * Details
+    */
+    div#tournament-details{
+      display: flex;
+      padding: 1rem 0rem;
+      &>*{
+        padding: 1rem;
+      }
+    }
+    div#tournament-details-participants{
+      flex:1;
+    }
+    div#tournament-details-matches{
+      flex:2;
+    }
+  </style>
+{% endblock %}
+

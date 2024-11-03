@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+  
+{% block main %}
+  <div>
+    <h2>
+      List referees
+    </h2>
+  </div>
+
+  {% if referees %}
+    <table id="list-referees">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th> 
+          <th>Competitions officiated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in referees %}
+        <tr id="referee-{{x.id}}" data-index="{{ x.id }}">
+          <td>{{ x.id }}</td>
+          <td>{{ x.first_name }} {{ x.last_name }}</td>
+          <td>{{ x.nb_tournaments_officiated }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <span>No referees yet.</span>
+  {% endif %}
+
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+  
+{% block main %}
+  <div>
+    <h2>
+      List competitors
+    </h2>
+  </div>
+
+  {% if competitors %}
+    <table id="list-users">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th> 
+          <th>Ranking</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in competitors %}
+        <tr id="competitor-{{x.id}}" data-index="{{ x.id }}">
+          <td>{{ x.id }}</td>
+          <td>{{ x.first_name }} {{ x.last_name }}</td>
+          <td>{{ x.ranking }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <span>No competitors yet.</span>
+  {% endif %}
+
+  <script>
+    setLinkTableRow("list-users", "");
+  </script>
+{% endblock %}

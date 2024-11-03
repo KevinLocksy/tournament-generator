@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "tournament-generator"
+version = "0.0.1"
+description = "Tournament generator Application. The application is built to generate and manage tournaments with the typical different phases: pools, knock-out tournament."
+authors = ["Kevin Locksy <nhan.kev@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = ">=3.2"
+ruff = "^0.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
